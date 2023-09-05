@@ -45,10 +45,7 @@
             }
           },
           "404": {
-            "description": "NotFound",
-            "schema": {
-              "type": "string"
-            }
+            "description": "NotFound"
           }
         }
       }
@@ -95,10 +92,7 @@
             }
           },
           "404": {
-            "description": "NotFound",
-            "schema": {
-              "type": "string"
-            }
+            "description": "NotFound"
           }
         }
       },
@@ -130,16 +124,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -195,10 +183,7 @@
             }
           },
           "404": {
-            "description": "NotFound",
-            "schema": {
-              "type": "string"
-            }
+            "description": "NotFound"
           }
         }
       },
@@ -301,9 +286,10 @@
           {
             "name": "type",
             "in": "query",
-            "description": "Provides shipping labels type in two formats.",
+            "description": "Provides shipping labels type in two formats. eg: shippinglabels, Waybill",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "default": "shippinglabels"
           },
           {
             "name": "size",
@@ -329,16 +315,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "Invalid Size",
-            "schema": {
-              "type": "string"
-            }
+            "description": "Invalid Size"
           }
         }
       }
@@ -368,22 +348,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           },
           "404": {
-            "description": "NotFound",
-            "schema": {
-              "type": "string"
-            }
+            "description": "NotFound"
           }
         }
       }
@@ -436,10 +407,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -468,17 +436,19 @@
           {
             "name": "page",
             "in": "query",
-            "description": "1",
+            "description": "Page count",
             "required": false,
             "type": "integer",
+            "default": 1,
             "format": "int32"
           },
           {
             "name": "maxResults",
             "in": "query",
-            "description": "Provides maxResults 200.",
+            "description": "Provides maxResults count.",
             "required": false,
             "type": "integer",
+            "default": 200,
             "format": "int32"
           },
           {
@@ -508,10 +478,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -570,10 +537,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -605,21 +569,16 @@
             "in": "path",
             "description": "Provides signature in two types. eg: png,svg formats.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "default": "png"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -704,10 +663,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -735,16 +691,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -764,16 +714,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -814,10 +758,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -845,16 +786,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -889,16 +824,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -918,16 +847,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       },
@@ -952,10 +875,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "boolean"
-            }
+            "description": "OK"
           }
         }
       }
@@ -1034,10 +954,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -1093,10 +1010,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -1118,7 +1032,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Unique id generated by the stat system. This is used as identifier. for eg: 1111",
+            "description": "Unique id generated by the stat system. This is used as identifier.",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -1157,7 +1071,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Unique id generated by the stat system. This is used as identifier. for eg: 1111",
+            "description": "Unique id generated by the stat system. This is used as identifier.",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -1204,10 +1118,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -1238,10 +1149,7 @@
             }
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
@@ -1263,23 +1171,17 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Unique id generated by the stat system. This is used as identifier. for eg: 2222",
+            "description": "Unique id generated by the stat system. This is used as identifier.",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "BadRequest",
-            "schema": {
-              "type": "string"
-            }
+            "description": "BadRequest"
           }
         }
       }
