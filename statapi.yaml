@@ -1,0 +1,1454 @@
+---
+openapi: 3.0.0
+info:
+  version: v1
+  title: STATAPI Testing
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: API Support
+    email: apiteam@swagger.io
+    url: https://github.com/Redocly/redoc
+  x-logo:
+    url: 'https://redocly.github.io/redoc/petstore-logo.png'
+    altText: Petstore logo
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: http://statapi-test.azurewebsites.net/
+schemes:
+- http
+tags:
+  - name: Customers
+    description: Operations about customers
+  - name: Orders
+    description: Access to STAT orders
+  - name: PriceSets
+    description: Operations about pricesets
+  - name: ServiceAreas
+    description: Operations about serviceareas
+  - name: CustomerDto_model
+    x-displayName: The Customer Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/CustomerDto" />  
+  - name: OrderInDto_model
+    x-displayName: The Order Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderInDto" />
+  - name: Collectionlocation_model
+    x-displayName: The Collection location Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/Collectionlocation" />
+  - name: Deliverylocation_model
+    x-displayName: The Delivery location Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/Deliverylocation" />
+  - name: OnTimePriceModifier_model
+    x-displayName: The OnTime PriceModifier Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OnTimePriceModifier" />
+  - name: PriceSetDto_model
+    x-displayName: The PriceSetDto Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/PriceSetDto" />    
+x-tagGroups:
+  - name: General
+    tags:
+      - Customers
+      - Orders
+      - PriceSets
+      - ServiceAreas
+  - name: Models
+    tags:
+      - CustomerDto_model   
+      - OrderInDto_model   
+      - Collectionlocation_model   
+      - Deliverylocation_model   
+      - OnTimePriceModifier_model   
+      - PriceSetDto_model   
+paths:
+  /api/customersForPickup/{UpdatedDate}:
+    get:
+      tags:
+      - Customers
+      summary: Get customers details based on the latest updated datetime.
+      operationId: Customers_customersForPickup
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: UpdatedDate
+        in: path
+        description: Time at which the customer details were last updated.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              CustomerId: "1369"
+              DisplayName: "SAMPLE: Pacific Northwest Supply"
+              AccountNumber: "911834035"
+          schema:
+            type: object
+        "404":
+          description: NotFound
+  /api/Customers:
+    get:
+      tags:
+      - Customers
+      summary: List all customers details.
+      operationId: Customers_GetCustomers
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              CustomerId: 1369
+              DisplayName: "SAMPLE: Pacific Northwest Supply"
+              ID: ""
+              Name: "SAMPLE: Pacific Northwest Supply"
+              PrimaryContactName: "SAMPLE: Pacific Northwest Supply"
+              AddressLine1: 2334 Cedar Crest Blvd
+              AddressLine2: ""
+              City: Medford
+              State: OR
+              PostalCode: "97504"
+              Country: USA
+              Phone: (541) 178-4197
+              Fax: (541) 271-2232
+              Email: Pacific@gmail.com
+              Website: www.pacregsupply.com
+              AccountNumber: "911834035"
+              TimeZone: ""
+          schema:
+            type: object
+        "404":
+          description: NotFound
+    post:
+      tags:
+      - Customers
+      summary: Creates a customer details.
+      operationId: Customers_CreateCustomer
+      consumes:
+      - application/json
+      - text/json
+      - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - in: body
+        name: customerDto
+        description: Fill the customerDto object (JSON format).
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerDto'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+  /api/Customers/{id}:
+    get:
+      tags:
+      - Customers
+      summary: Get customers details based on the customers id.
+      operationId: Customers_GetCustomer
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: id
+        in: path
+        description: Unique id generated by the stat system. This is used as identifier.
+        required: true
+        type: integer
+        format: int32
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              CustomerId: 1369
+              DisplayName: "SAMPLE: Pacific Northwest Supply"
+              ID: ""
+              Name: "SAMPLE: Pacific Northwest Supply"
+              PrimaryContactName: "SAMPLE: Pacific Northwest Supply"
+              AddressLine1: 2334 Cedar Crest Blvd
+              AddressLine2: ""
+              City: Medford
+              State: OR
+              PostalCode: "97504"
+              Country: USA
+              Phone: (541) 178-4197
+              Fax: (541) 271-2232
+              Email: Pacific@gmail.com
+              Website: www.pacregsupply.com
+              AccountNumber: "911834035"
+              TimeZone: ""
+          schema:
+            type: object
+        "404":
+          description: NotFound
+    post:
+      tags:
+      - Customers
+      summary: Updates a customer details.
+      operationId: Customers_UpdateCustomer
+      consumes:
+      - application/json
+      - text/json
+      - application/x-www-form-urlencoded
+      produces: []
+      parameters:
+      - name: id
+        in: path
+        description: Unique id generated by the stat system. This is used as identifier.
+        required: true
+        type: integer
+        format: int32
+      - in: body
+        name: customerDto
+        description: Fill the customerDto object (JSON format).
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerDto'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: BadRequest
+          schema:
+            type: string
+    delete:
+      tags:
+      - Customers
+      summary: Deletes a customer details.
+      operationId: Customers_DeleteCustomer
+      consumes: []
+      produces: []
+      parameters:
+      - name: id
+        in: path
+        description: Unique id generated by the stat system. This is used as identifier.
+        required: true
+        type: integer
+        format: int32
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: NotFound
+          schema:
+            type: string
+  /api/DownloadLabel:
+    get:
+      tags:
+      - OrderLabel
+      summary: "Method returns the shipping labels in two formats. eg: shipping labels, Waybill, Shipping labels generated for the providing values specified in the request."
+      description: Return File
+      operationId: OrderLabel_DownloadLabel
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      - application/pdf
+      parameters:
+      - name: trackingNumber
+        in: query
+        description: The tracking number of the shipping label for which you want tracking information. It's generated by the stat system.
+        required: true
+        type: string
+      - name: type
+        in: query
+        description: "Provides shipping labels type in two formats. eg: shippinglabels, Waybill"
+        required: true
+        type: string
+        default: shippinglabels
+      - name: size
+        in: query
+        description: The standard for shipping labels size is 4x8 inches.
+        required: false
+        type: string
+      - name: customerId
+        in: query
+        description: Unique ID generated by the server. This is used as identifier.
+        required: false
+        type: string
+      - name: format
+        in: query
+        description: Provides shipping labels in pdf formats.
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Invalid Size
+  /api/OrderLabel/{id}:
+    get:
+      tags:
+      - OrderLabel
+      summary: "Method returns the shipping labels in pdf formats, Shipping labels generated for the order id specified in the request."
+      description: Return File
+      operationId: OrderLabel_GetOrderLabel
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      - application/pdf
+      parameters:
+      - name: id
+        in: path
+        description: Unique id generated by the stat system. This is used as identifier.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+        "404":
+          description: NotFound
+  /api/orders/vpoddownload:
+    get:
+      tags:
+      - Orders
+      summary: Get attachments details based on the provided value.
+      operationId: Orders_GetAttachments
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: trackingNumber
+        in: query
+        description: The tracking number of the shipping label for which you want tracking information. It's generated by the stat system.
+        required: true
+        type: string
+      - name: ignoreOrderStatus
+        in: query
+        description: Order status reference.
+        required: false
+        type: boolean
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              Message: ""
+              TotalAttachmentCount: 1
+              AttachementData:
+              - FileName: 0678035f-c427-486e-8775-ad719c3c7058.png
+                Contents: image/png;base64
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/orderUpdates:
+    get:
+      tags:
+      - Orders
+      summary: Get orders details based on the provided value.
+      operationId: Orders_GetOrderUpdates
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: minDateTime
+        in: query
+        description: Start datetime.
+        required: true
+        type: string
+        format: date-time
+      - name: page
+        in: query
+        description: Page count
+        required: false
+        type: integer
+        default: 1
+        format: int32
+      - name: maxResults
+        in: query
+        description: Provides maxResults count.
+        required: false
+        type: integer
+        default: 200
+        format: int32
+      - name: maxDateTime
+        in: query
+        description: End datetime.
+        required: false
+        type: string
+        format: date-time
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              LastUpdateReturned: 2023-09-05T09:05:19.4597888Z
+              OrderData: 2023-09-05T09:05:19.4597888Z
+              CurrentPage: 1
+              Count: 50
+              TotalCount: 100
+              TotalPage: 2
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/GetNewOrderByCustomerId/{CustomerId}:
+    get:
+      tags:
+      - Orders
+      summary: Get orders details based on the customer id.
+      operationId: Orders_GetNewOrderByCustomerId
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: CustomerId
+        in: path
+        description: Filter the reference entity records by their customer id.
+        required: true
+        type: integer
+        format: int32
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+            - Sequence: 1
+              TrackingNumber: "10356385"
+              SignatureRequired: true
+              DeliverAfter: 2023-09-04T09:05:19.4597888Z
+              DeliverBefore: 2023-09-05T09:05:19.4597888Z
+              Address:
+                CompanyName: Johnsons-6
+                ContactName: Johnsons-6
+                AddressLine1: 2334 Cedar Crest Blvd
+                AddressLine2: ""
+                City: Medford
+                State: OR
+                PostalCode: "97504"
+              Latitude: 0
+              Longitude: 0
+              PhoneNumber: (541) 178-4197
+              IsOptimized: true
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/orders/signature/{trackingNumber}/{format}:
+    get:
+      tags:
+      - Orders
+      summary: Returns base64 string of delivery signature.
+      operationId: Orders_GetSignature
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      - image/png
+      - image/svg+xml
+      parameters:
+      - name: trackingNumber
+        in: path
+        description: The tracking number of the shipping label for which you want tracking information. It's generated by the stat system.
+        required: true
+        type: string
+      - name: format
+        in: path
+        description: "Provides signature in two types. eg: png,svg formats."
+        required: true
+        type: string
+        default: png
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+  /api/orders:
+    post:
+      tags:
+      - Orders
+      summary: Create order.
+      operationId: Orders_CreateOrder
+      consumes:
+      - application/json
+      - text/json
+      - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - in: body
+        name: orderDto
+        description: Fill the OrderInDto object (JSON format).
+        required: true
+        schema:
+          $ref: '#/definitions/OrderInDto'
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              ID: ""
+              TrackingNumber: ""
+              TrackingURL: ""
+              BarcodeURL: ""
+              Refrigerated: false
+              StatusUpdates:
+              - Date: 2023-09-05T09:05:19.4682234Z
+                Description: ""
+                Exception: true
+                ExceptionCode: 0
+                LocalTime: 2023-09-05T09:05:19.4682234Z
+                Region: ""
+              StatusCode: 0
+              Description: ""
+              Comments: ""
+              Customer: ""
+              PriceSet: ""
+              CollectionSignatureRequired: false
+              DeliverySignatureRequired: false
+              SuppressUserNotification: false
+              CollectionLocation:
+                ContactName: ""
+                CompanyName: ""
+                AddressLine1: ""
+                AddressLine2: ""
+                City: ""
+                State: ""
+                PostalCode: ""
+                Country: ""
+                Comments: ""
+                Email: ""
+                Phone: ""
+                Category: ""
+                LatitudeLongitude: ""
+              DeliveryLocation: {}
+              DeclaredValue: 0
+              TotalCost: 0
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/orders/cancel/{trackingNumber}:
+    post:
+      tags:
+      - Orders
+      summary: Cancel order by tracking number
+      operationId: Orders_CancelOrder
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: trackingNumber
+        in: path
+        description: The tracking number of the shipping label for which you want tracking information. It's generated by the stat system.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+  /api/orders/syncLateOrders:
+    get:
+      tags:
+      - Orders
+      summary: Updates a late orders details.
+      operationId: Orders_SyncLateOrders
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+  /api/orders/lateOrders:
+    get:
+      tags:
+      - Orders
+      summary: Retrieves a list of late orders.
+      operationId: Orders_GetLateOrders
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              LateOrders:
+              - TrackingNumber: ""
+                DateSubmitted: ""
+                RecipientName: ""
+                RecipientPhone: ""
+                Description: ""
+              CustomerName: ""
+              CustomerEmail: ""
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/GetLatandLongFromOntime:
+    post:
+      tags:
+      - Orders
+      summary: Searches for latitude and longitude from ontime that match a supplied tracking number.
+      operationId: Orders_GetLatandLongFromOntime
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: trackingNumber
+        in: query
+        description: The tracking number of the shipping label for which you want tracking information. It's generated by the stat system.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+  /api/orders/ValidateZipcode:
+    post:
+      tags:
+      - Orders
+      summary: validate zipcode based on the customers id.
+      operationId: Orders_ValidateZipcode
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: FromPostalCode
+        in: query
+        description: Fill the from postal code
+        required: true
+        type: string
+      - name: ToPostalCode
+        in: query
+        description: Fill the to  postal code
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+  /api/Orders:
+    get:
+      tags:
+      - Orders
+      summary: Retrieves a list of orders.
+      operationId: Orders_GetOrders
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+    post:
+      tags:
+      - Orders
+      operationId: Orders_SetCustomerbyId
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: CustomerId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        "200":
+          description: OK
+  /api/Orders/{id}:
+    get:
+      tags:
+      - Orders
+      summary: Get orders details based on the order id.
+      operationId: Orders__GetOrders
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: id
+        in: path
+        description: Filter the reference entity records by their order id.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              ID: ""
+              TrackingNumber: ""
+              TrackingURL: ""
+              BarcodeURL: ""
+              Refrigerated: false
+              StatusUpdates:
+              - Date: 2023-09-05T09:05:19.4723151Z
+                Description: ""
+                Exception: true
+                ExceptionCode: 0
+                LocalTime: 2023-09-05T09:05:19.4723151Z
+                Region: ""
+              StatusCode: 0
+              Description: ""
+              Comments: ""
+              Customer: ""
+              PriceSet: ""
+              CollectionSignatureRequired: false
+              DeliverySignatureRequired: false
+              SuppressUserNotification: false
+              CollectionLocation:
+                ContactName: ""
+                CompanyName: ""
+                AddressLine1: ""
+                AddressLine2: ""
+                City: ""
+                State: ""
+                PostalCode: ""
+                Country: ""
+                Comments: ""
+                Email: ""
+                Phone: ""
+                Category: ""
+                LatitudeLongitude: ""
+              DeliveryLocation: {}
+              DeclaredValue: 0
+              TotalCost: 0
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/pricesets/{source}/{dest}:
+    get:
+      tags:
+      - PriceSets
+      summary: Searches for pricesets that match a supplied provided values.
+      operationId: PriceSets_GetPricesets
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: source
+        in: path
+        description: Serviced from sender zip code.
+        required: true
+        type: string
+      - name: dest
+        in: path
+        description: Serviced from receiver zip code.
+        required: true
+        type: string
+      - name: declaredValue
+        in: query
+        description: "."
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              PriceEstimate: 0
+              ID: ""
+              Name: ""
+              ServiceLevel: ""
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/PriceSets/{id}:
+    post:
+      tags:
+      - PriceSets
+      summary: Updates a priceset details.
+      operationId: PriceSets_UpdatePriceSet
+      consumes:
+      - application/json
+      - text/json
+      - application/x-www-form-urlencoded
+      produces: []
+      parameters:
+      - name: id
+        in: path
+        description: Unique id generated by the stat system. This is used as identifier.
+        required: true
+        type: integer
+        format: int32
+      - in: body
+        name: pricesetDto
+        description: Fill the pricesetDto object (JSON format).
+        required: true
+        schema:
+          $ref: '#/definitions/PriceSetDto'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: BadRequest
+          schema:
+            type: string
+    delete:
+      tags:
+      - PriceSets
+      summary: Delete priceset details.
+      operationId: PriceSets_DeletePriceSet
+      consumes: []
+      produces: []
+      parameters:
+      - name: id
+        in: path
+        description: Unique id generated by the stat system. This is used as identifier.
+        required: true
+        type: integer
+        format: int32
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: BadRequest
+          schema:
+            type: string
+  /api/serviceAreasByRegion:
+    get:
+      tags:
+      - ServiceAreas
+      summary: List all service areas by region details.
+      operationId: ServiceAreas_GetServiceAreasByRegion
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              RegionId: 00000000-0000-0000-0000-000000000000
+              RegionName: ""
+              ZipCodes: []
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/ServiceAreas:
+    get:
+      tags:
+      - ServiceAreas
+      summary: List all service areas details.
+      operationId: ServiceAreas_GetServiceAreas
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              ZipValue: ""
+          schema:
+            type: object
+        "400":
+          description: BadRequest
+  /api/ServiceAreas/{id}:
+    get:
+      tags:
+      - ServiceAreas
+      summary: Get service areas details based on the servicearea id.
+      description: Return True/False
+      operationId: ServiceAreas__GetServiceAreas
+      consumes: []
+      produces:
+      - application/json
+      - text/json
+      parameters:
+      - name: id
+        in: path
+        description: Unique id generated by the stat system. This is used as identifier.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest
+
+components:
+  schemas:
+    CustomerDto:
+      type: object
+      required:
+       - DisplayName
+      properties:
+        CustomerId:
+          type: integer
+          format: int32
+          description: Unique id generated by the stat system. This is used as identifier.
+        DisplayName:
+          type: string
+          description: Customer display name.
+          minLength: 0
+          maxLength: 255
+        PriceSets:
+          type: array
+          description: Price sets details.
+          items:
+            type: string
+            description: Price sets items details.
+        ID:
+          type: string
+          description: Unique id generated by the stat system. This is used as identifier.
+        Name:
+          type: string
+          description: Customer name.
+        PrimaryContactName:
+          type: string
+          description: Customer primary contact name.
+        AddressLine1:
+          type: string
+          description: The name of the customer address line 1
+        AddressLine2:
+          type: string
+          description: The name of the customer address line 2
+        City:
+          type: string
+          description: The name of the city the customer address resides in
+        State:
+          type: string
+          description: The name of the state the customer address resides in
+        PostalCode:
+          type: string
+          description: The postcode associated with the customer address
+        Country:
+          type: string
+          description: The name of the country the customer address resides
+        Phone:
+          type: string
+          description: Customer phone.
+        Fax:
+          type: string
+          description: Customer fax.
+        Email:
+          type: string
+          description: Customer email.
+        Website:
+          type: string
+          description: Customer website.
+        AccountNumber:
+          type: string
+          description: Customer accountnumber.
+        TimeZone:
+          type: string
+          description: Customer timezone.
+      example:
+        CustomerId: 1369
+        DisplayName: "SAMPLE: Pacific Northwest Supply"
+        ID: ""
+        Name: "SAMPLE: Pacific Northwest Supply"
+        PrimaryContactName: "SAMPLE: Pacific Northwest Supply"
+        AddressLine1: 2334 Cedar Crest Blvd
+        AddressLine2: ""
+        City: Medford
+        State: OR
+        PostalCode: "97504"
+        Country: USA
+        Phone: (541) 178-4197
+        Fax: (541) 271-2232
+        Email: Pacific@gmail.com
+        Website: www.pacregsupply.com
+        AccountNumber: "911834035"
+        TimeZone: ""
+      xml:
+        name: CustomerDto  
+    OrderInDto:
+      type: object
+      required:
+        - CODAmount
+        - Comments
+        - CustomerId
+        - DeclaredValue
+        - Description
+        - PriceSet
+        - PurchaseOrderNumber
+        - Quantity
+        - SignatureType
+        - Weight
+      properties:
+        BasePrice:
+          type: number
+          format: double
+          description: Order base
+        CODAmount:
+          type: number
+          format: double
+          description: Order COD amount
+        SubTotal:
+          type: number
+          format: double
+          description: Order subTotal
+        TaxTotal:
+          type: number
+          format: double
+          description: Order taxTotal
+        TotalCost:
+          type: number
+          format: double
+          description: Order totalCost
+        PriceModifierTotalCost:
+          type: number
+          format: double
+          description: Order price modifier totalCost
+        DeliveryCODRequired:
+          type: boolean
+          description: Order delivery COD required
+        OrderId:
+          type: integer
+          format: int64
+          description: Unique id generated by the STAT system. This is used as identifier
+        UID:
+          type: string
+          description: Unique id generated by the STAT system. This is used as identifier
+        OrderIdLink:
+          type: string
+          description: Order id link
+        CustomerId:
+          type: integer
+          format: int32
+          description: Unique id generated by the STAT system. This is used as identifier
+        Customer:
+          type: string
+          description: Display the customer name
+        BarcodeURL:
+          type: string
+          description: Order barcode URL
+        Refrigerated:
+          type: boolean
+          description: Order refrigerated
+        ID:
+          type: string
+          description: Unique id generated by the STAT system. This is used as identifier
+        TrackingNumber:
+          type: string
+          description: The tracking number of the shipping label for which you want tracking information. It's generated by the STAT system.
+        RequestedBy:
+          type: string
+          description: Order requester name
+        BasePriceType:
+          type: string
+          description: Order baseprice type
+        Description:
+          type: string
+          description: Order description
+        Comments:
+          type: string
+          description: Order comments
+        DateSubmitted:
+          type: string
+          description: Order Submitted date
+        RouteName:
+          type: string
+          description: Order route name
+        StatusLevel:
+          type: string
+          description: Order status level text description
+        CollectionArrivalDate:
+          type: string
+          description: Order collection arrivaldate
+        CollectionContactName:
+          type: string
+          description: Order collected person contact name
+        CollectionCODRequired:
+          type: boolean
+          description: Order collected person COD required or not
+        CollectionSignatureRequired:
+          type: boolean
+          description: Order collected person signature required or not
+        Distance:
+          type: number
+          format: double
+          description: Order total distance
+        Height:
+          type: number
+          format: double
+          description: Order height
+        Width:
+          type: number
+          format: double
+          description: Order width
+        Length:
+          type: number
+          format: double
+          description: Order length
+        Weight:
+          type: number
+          format: double
+          description: Order length
+        Quantity:
+          type: integer
+          format: int32
+          description: Order quantity
+        PriceSet:
+          type: string
+          description: Order priceSet
+        DeclaredValue:
+          type: number
+          format: double
+          description: Order declared value
+        DeliveryArrivalDate:
+          type: string
+          format: date-time
+          description: Order delivery arrival date
+        DeliveryEstimateEarliest:
+          type: string
+          format: date-time
+          description: Order delivery estimate earliest
+        DeliveryEstimateLatest:
+          type: string
+          format: date-time
+          description: Order delivery estimate latest
+        DeliverySignatureRequired:
+          type: boolean
+          description: Order delivery signature required or not
+        SuppressUserNotification:
+          type: boolean
+        PurchaseOrderNumber:
+          type: string
+          description: Order purchase order number
+        ReferenceNumber:
+          type: string
+          description: Order reference number
+        ShortCodeOptIn:
+          type: boolean
+        CollectionLocation:
+          $ref: '#/definitions/Collectionlocation'
+        DeliveryLocation:
+          $ref: '#/definitions/Deliverylocation'
+        PriceModifier:
+          type: array
+          items:
+            $ref: '#/definitions/OnTimePriceModifier'
+        IsCustomerPortal:
+          type: boolean
+          description: order via customer portal or not
+        IsUpdateOnTime:
+          type: boolean
+          description: order via update ontime or not
+        ShipToInjectionPoint:
+          type: boolean
+          description: order via ship to injection point or not
+        ShippinglabelSize:
+          type: string
+          description: order shipping label size describe
+        RXNumber:
+          type: string
+          description: order RXNumber describe
+        SignatureType:
+          type: string
+          description: order signature type describe
+        IsAdultSignature:
+          type: boolean
+          description: order via adult signature or not
+        ParentOrderId:
+          type: integer
+          format: int64
+          description: Unique id generated by the STAT system. This is used as identifier
+      example:
+        BasePrice: 0
+        CODAmount: 20
+        SubTotal: 0
+        TaxTotal: 0
+        TotalCost: 0
+        PriceModifierTotalCost: 0
+        DeliveryCODRequired: false
+        OrderId: 0
+        UID: ""
+        OrderIdLink: ""
+        CustomerId: 1369
+        Customer: ""
+        BarcodeURL: ""
+        Refrigerated: true
+        ID: ""
+        TrackingNumber: "10356385"
+        RequestedBy: ""
+        BasePriceType: ""
+        Description: ""
+        Comments: ""
+        DateSubmitted: ""
+        RouteName: ""
+        StatusLevel: ""
+        CollectionArrivalDate: ""
+        CollectionContactName: ""
+        CollectionCODRequired: true
+        CollectionSignatureRequired: true
+        Distance: 0
+        Height: 0
+        Width: 0
+        Length: 0
+        Weight: 0
+        Quantity: 0
+        PriceSet: ""
+        DeclaredValue: 0
+        DeliveryArrivalDate: 2023-08-24T06:55:12.2847335Z
+        DeliveryEstimateEarliest: 2023-08-24T06:55:12.2847335Z
+        DeliveryEstimateLatest: 2023-08-24T06:55:12.2847335Z
+        DeliverySignatureRequired: true
+        SuppressUserNotification: true
+        PurchaseOrderNumber: ""
+        ReferenceNumber: ""
+        ShortCodeOptIn: true
+        CollectionLocation:
+          ContactName: ""
+          CompanyName: ""
+          AddressLine1: ""
+          AddressLine2: ""
+          City: ""
+          State: ""
+          PostalCode: ""
+          Country: ""
+          Comments: ""
+          Email: ""
+          Phone: ""
+          Category: ""
+          LatitudeLongitude: ""
+        DeliveryLocation:
+          ContactName: ""
+          CompanyName: ""
+          AddressLine1: ""
+          AddressLine2: ""
+          City: ""
+          State: ""
+          PostalCode: ""
+          Country: ""
+          Comments: ""
+          Email: ""
+          Phone: ""
+          Category: ""
+          LatitudeLongitude: ""
+        PriceModifier:
+        - ID: ""
+          Name: ""
+          CustomValue: 0
+          PercentCommissionable: 0
+          Price: 0
+          Type: 0
+          Input: 0
+        IsCustomerPortal: true
+        IsUpdateOnTime: true
+        ShipToInjectionPoint: true
+        ShippinglabelSize: ""
+        RXNumber: ""
+        SignatureType: ""
+        IsAdultSignature: true
+        ParentOrderId: 0
+      xml:
+        name: OrderInDto
+    Collectionlocation:
+      type: object
+      required:
+        - AddressLine1
+        - AddressLine2
+        - City
+        - CompanyName
+        - ContactName
+        - Country
+        - Email
+        - Phone
+        - PostalCode
+        - State
+      properties:
+        Zone:
+          type: string
+          description: The name of the collection zone
+        ID:
+          type: string
+          description: Unique id generated by the STAT system. This is used as identifier
+        ContactName:
+          type: string
+          description: The name of the collection contact name
+        CompanyName:
+          type: string
+          description: The name of the collection company name
+        AddressLine1:
+          type: string
+          description: The name of the collection address line 1
+        AddressLine2:
+          type: string
+          description: The name of the collection address line 2
+        City:
+          type: string
+          description: The name of the city the collection address resides in
+        State:
+          type: string
+          description: The name of the state the collection address resides in
+        PostalCode:
+          type: string
+          description: The postcode associated with the collection address
+        Country:
+          type: string
+          description: The name of the country the collection address resides
+        Comments:
+          type: string
+          description: Contact Comments for the collection point
+        Email:
+          type: string
+          description: Contact email for the collection point
+        Phone:
+          type: string
+          description: Contact phone number for the collection point
+        Category:
+          type: string
+        LatitudeLongitude:
+          type: string
+          description: Longitude & Longitude of the collection Point
+      xml:
+        name: Collectionlocation
+    Deliverylocation:
+      type: object
+      required:
+        - AddressLine1
+        - AddressLine2
+        - City
+        - CompanyName
+        - ContactName
+        - Country
+        - Email
+        - Phone
+        - PostalCode
+        - State
+      properties:
+        Zone:
+          type: string
+          description: The name of the delivery zone
+        ID:
+          type: string
+          description: Unique id generated by the STAT system. This is used as identifier
+        ContactName:
+          type: string
+          description: The name of the delivery contact name
+        CompanyName:
+          type: string
+          description: The name of the delivery company name
+        AddressLine1:
+          type: string
+          description: The name of the delivery address line 1
+        AddressLine2:
+          type: string
+          description: The name of the delivery address line 2
+        City:
+          type: string
+          description: The name of the city the delivery address resides in
+        State:
+          type: string
+          description: The name of the state the delivery address resides in
+        PostalCode:
+          type: string
+          description: The postcode associated with the delivery address
+        Country:
+          type: string
+          description: The name of the country the delivery address resides
+        Comments:
+          type: string
+          description: Contact Comments for the delivery point
+        Email:
+          type: string
+          description: Contact email for the delivery point
+        Phone:
+          type: string
+          description: Contact phone number for the delivery point
+        Category:
+          type: string
+        LatitudeLongitude:
+          type: string
+          description: Longitude & Longitude of the delivery Point
+      xml:
+        name: Deliverylocation
+    OnTimePriceModifier:
+      type: object
+      properties:
+        ID:
+          type: string
+          description: Unique id generated by the STAT system. This is used as identifier
+        Name:
+          type: string
+          description: The name of the ontime price
+        CustomValue:
+          type: number
+          format: double
+          description: The name of the custom value
+        PercentCommissionable:
+          type: number
+          format: double
+          description: The value of the commissionable percent
+        Price:
+          type: number
+          format: double
+          description: The value of the price
+        Type:
+          type: integer
+          format: int32
+          description: The value of the type
+        Input:
+          type: integer
+          format: int32
+          description: The value of the input
+      xml:
+        name: OnTimePriceModifier
+    PriceSetDto:
+      type: object
+      properties:
+        OrderId:
+          type: integer
+          format: int64
+          description: Unique id generated by the STAT system. This is used as identifier
+        UID:
+          type: string
+          description: Unique id generated by the STAT system. This is used as identifier
+        CustomerId:
+          type: integer
+          format: int32
+          description: Unique id generated by the STAT system. This is used as identifier
+        BarcodeURL:
+          type: string
+          description: BarcodeURL generated by the STAT system.
+      example:
+        OrderId: 0
+        UID: ""
+        CustomerId: 0
+        BarcodeURL: ""
+      xml:
+        name: PriceSetDto    
