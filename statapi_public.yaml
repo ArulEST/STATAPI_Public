@@ -11,7 +11,8 @@ info:
     # email: apiteam@swagger.io
     url: http://statapi-test.azurewebsites.net/
   x-logo:
-    url: '../logo.png'
+    # url: '../logo.png'
+    url: '../main/logo.png'
     altText: STAT logo
   license:
     name: Apache 2.0
