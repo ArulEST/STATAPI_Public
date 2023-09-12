@@ -3,21 +3,12 @@ openapi: 3.0.0
 info:
   description: |
     This is a sample server STATAPI server.
-    
-
-    # Introduction 1
-
-
-    # Introduction 2
-    
-
-    # Introduction 3
   version: v1
   title: STATAPI-Public
   termsOfService: 'http://swagger.io/terms/'
   contact:
     name: API Support
-    email: apiteam@swagger.io
+    # email: apiteam@swagger.io
     url: http://statapi-test.azurewebsites.net/
   x-logo:
     url: 'http://127.0.0.1:5500/MicrosoftTeams-image.png'
