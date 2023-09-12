@@ -12,7 +12,7 @@ info:
     url: http://statapi-test.azurewebsites.net/
   x-logo:
     # url: '../logo.png'
-    url: '../main/logo.png'
+    url: 'https://arulest.github.io/STATAPI_Public/logo.png'
     altText: STAT logo
   license:
     name: Apache 2.0
