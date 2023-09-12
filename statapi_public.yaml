@@ -65,10 +65,28 @@ tags:
     x-displayName: The Delivery location Model
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/Deliverylocation" />
-  # - name: OnTimePriceModifier_model
-  #   x-displayName: The OnTime PriceModifier Model
-  #   description: |
-  #     <SchemaDefinition schemaRef="#/components/schemas/OnTimePriceModifier" />
+  - name: OnTimePriceModifier_model
+    x-displayName: The OnTime PriceModifier Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OnTimePriceModifier" />
+
+  - name: CreateOrderOutDto_model
+    x-displayName: The Create Order Response Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/CreateOrderOutDto" />    
+  - name: OrderStatusDto_model
+    x-displayName: The OrderStatusDto Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderStatusDto" />
+  - name: CollectionArrivalWindow_model
+    x-displayName: The CollectionArrivalWindow Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/CollectionArrivalWindow" />
+  - name: DeliveryArrivalWindow_model
+    x-displayName: The OnTime DeliveryArrivalWindow Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/DeliveryArrivalWindow" />    
+
 
 x-tagGroups:
   - name: General
@@ -76,10 +94,15 @@ x-tagGroups:
       - Orders
   - name: Models
     tags:
-      - CreateOrderInDto_model   
+      - CreateOrderInDto_model  
       - Collectionlocation_model   
       - Deliverylocation_model   
-      - OnTimePriceModifier_model   
+      - OnTimePriceModifier_model  
+     
+      - CreateOrderOutDto_model
+      - OrderStatusDto_model   
+      - CollectionArrivalWindow_model   
+      - DeliveryArrivalWindow_model 
      
 paths:
   /api/orders:
