@@ -11,8 +11,8 @@ info:
     # email: apiteam@swagger.io
     url: http://statapi-test.azurewebsites.net/
   x-logo:
-    # url: '../logo.png'
-    url: 'https://arulest.github.io/STATAPI_Public/logo.png'
+    url: '../logo.png'
+    # url: 'https://arulest.github.io/STATAPI_Public/logo.png'
     altText: STAT logo
   license:
     name: Apache 2.0
@@ -58,27 +58,31 @@ tags:
   #   description: |
   #     <SchemaDefinition schemaRef="#/components/schemas/Deliverylocation" />
   # - name: OnTimePriceModifier_model
-  #   x-displayName: The OnTime PriceModifier Model
+  #   x-displayName: The ontime pricemodifier model
   #   description: |
   #     <SchemaDefinition schemaRef="#/components/schemas/OnTimePriceModifier" />
 
   - name: CreateOrderOutDto_model
-    x-displayName: The Create Order Response Model
+    x-displayName: The create order response model
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/CreateOrderOutDto" />    
   # - name: OrderStatusDto_model
-  #   x-displayName: The OrderStatusDto Model
+  #   x-displayName: The OrderStatusDto model
   #   description: |
   #     <SchemaDefinition schemaRef="#/components/schemas/OrderStatusDto" />
   # - name: CollectionArrivalWindow_model
-  #   x-displayName: The CollectionArrivalWindow Model
+  #   x-displayName: The collection arrival window model
   #   description: |
   #     <SchemaDefinition schemaRef="#/components/schemas/CollectionArrivalWindow" />
   # - name: DeliveryArrivalWindow_model
-  #   x-displayName: The OnTime DeliveryArrivalWindow Model
+  #   x-displayName: The ontime delivery arrival window model
   #   description: |
   #     <SchemaDefinition schemaRef="#/components/schemas/DeliveryArrivalWindow" />    
 
+  # - name: GetOrderUpdates_model
+  #   x-displayName: The order updates response model
+  #   description: |
+  #     <SchemaDefinition schemaRef="#/components/schemas/GetOrderUpdates" />    
 
 x-tagGroups:
   - name: General
@@ -95,6 +99,8 @@ x-tagGroups:
       # - OrderStatusDto_model   
       # - CollectionArrivalWindow_model   
       # - DeliveryArrivalWindow_model 
+
+      # - GetOrderUpdates_model   
      
 paths:
   /api/orders:
@@ -128,6 +134,72 @@ paths:
               $ref: '#/components/schemas/CreateOrderInDto'
         description: Order request body schema description.
         required: true 
+  /api/Orders/{id}:
+    get:
+      tags:
+        - Orders
+      summary: Get orders details based on the order id.
+      operationId: Orders__GetOrders
+      parameters:
+        - in: path
+          name: id
+          description: The tracking number acts as a unique identifier to track the package in real time during the shipment.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderOutDto'
+        "400":
+          description: BadRequest     
+  /api/orderUpdates:
+    get:
+      tags:
+        - Orders
+      summary: Get orders details based on the provided value.
+      operationId: Orders_GetOrderUpdates
+      parameters:
+        - name: minDateTime
+          in: query
+          description: Start datetime.
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: page
+          in: query
+          description: Page count
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: maxResults
+          in: query
+          description: Provides maxResults count.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: maxDateTime
+          in: query
+          description: End datetime.
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: OK successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderUpdates'
+        "400":
+          description: BadRequest         
  
 components:
   schemas:
@@ -678,12 +750,12 @@ components:
           maxLength: 50
         TrackingNumber:
           type: string
-          description: Helps to track and get the status of the movement of the package order. 
+          description:  
           minLength: 0
           maxLength: 50
         TrackingURL:
           type: string
-          description: 
+          description: Helps to track and get the status of the movement of the package order.
           minLength: 0
           maxLength: 2000
         BarcodeURL:
@@ -758,8 +830,12 @@ components:
           type: number
           format: double
           description: Order declared value
+        DriverInstruction:
+          type: string
+          description: DriverInstruction 
+          minLength: 0
+          maxLength: 200 
       example:
-        RegionCode: null
         error: null
         ID: "12735950"
         TrackingNumber: "S2023090002912"
@@ -828,5 +904,107 @@ components:
         TotalCost: 0.0
         DriverInstruction: "Drop the package at the front door"
       xml:
-        name: CreateOrderOutDto                   
+        name: CreateOrderOutDto 
+
+    GetOrderUpdates:
+      type: object
+      properties:
+        LastUpdateReturned:
+          type: string
+          format: date-time
+          description: 
+        OrderData:
+           $ref: '#/components/schemas/CreateOrderOutDto'
+        CurrentPage:
+          type: integer
+          format: int32
+          description: 
+        Count:
+          type: integer
+          format: int32
+          description: 
+        TotalCount:
+          type: integer
+          format: int32
+          description: 
+        TotalPage:
+          type: integer
+          format: int32
+          description: 
+      example:
+        LastUpdateReturned: "2023-09-12T14:48:09.6157213Z"
+        OrderData: 
+          error: null
+          ID: "12735950"
+          TrackingNumber: "S2023090002912"
+          TrackingURL: "https://apps.statovernight.com/MyOrder/?id=nIF2IBUM_ECFnw_-W7sqpA"
+          BarcodeURL: "https://statqa.azurewebsites.net/OrdersManagement/Orders/OrderShippingLabel?orderId=S2023090002912&customerId=43532938-be8d-43c3-b9c7-cc6ea8441f93"
+          ShippingLabel: "https://statapi-development.azurewebsites.net//api/DownloadLabel?TrackingNumber=S2023090002912&Type=ShippingLabel&CustomerId=43532938-be8d-43c3-b9c7-cc6ea8441f93&Size=4x8"
+          VpodDownload: null
+          SignatureURL: null
+          Refrigerated: false
+          StatusUpdates: 
+            Date: "2023-09-05T15:20:38.0755622Z"
+            Description: "Order received"
+            Exception: false
+            ExceptionCode: 0
+            LocalTime: "2023-09-05T10:20:38.0755622"
+            Region: Irving              
+          DeliveryContactName: null
+          StatusCode: 1
+          CustomerAccount: "78554512"
+          Description: "Fragile Handle with care: Glass material"
+          Comments: ""
+          Customer: "1369"
+          PriceSet: ""
+          CollectionArrivalWindow: 
+            EarliestTime: "2023-09-05T15:20:31.539697Z"
+            LatestTime: "2023-09-06T02:00:00Z"
+          DeliveryArrivalWindow: 
+            EarliestTime: "2023-09-06T12:00:00Z"
+            LatestTime: "2023-09-06T16:00:00Z"
+          CollectionSignatureRequired: false
+          DeliverySignatureRequired: false
+          SuppressUserNotification: false
+          CollectionLocation: 
+            Zone: ""
+            ID: ""
+            ContactName: "Johnsons"
+            CompanyName: "PKR pharmacy"
+            AddressLine1: "2334 Cedar Crest Blvd"
+            AddressLine2: null
+            City: "Dallas"
+            State: "TX"
+            PostalCode: "75203"
+            Country: "United States"
+            Comments: null
+            Email: "pharma@yopmail.com"
+            Phone: "3333344445"
+            Category: null
+            LatitudeLongitude: null
+          DeliveryLocation: 
+            Zone: ""
+            ID: ""
+            ContactName: "Tom Holland"
+            CompanyName: "Medicare"
+            AddressLine1: "9050 Markville Dr"
+            AddressLine2: null
+            City: "Dallas"
+            State: "TX"
+            PostalCode: "75243-1254"
+            Country: "United States"
+            Comments: null
+            Email: "sample01@yopmail.com"
+            Phone: ""
+            Category: null
+            LatitudeLongitude: null
+          DeclaredValue: 129.0
+          TotalCost: 0.0
+          DriverInstruction: "Drop the package at the front door"
+        CurrentPage: 1
+        Count: 50
+        TotalCount: 100
+        TotalPage: 2
+      xml:
+        name: GetOrderUpdates                        
    
